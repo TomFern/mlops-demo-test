@@ -16,11 +16,10 @@ blocks:
       jobs:
         - name: Train model
           commands:
+            - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro
+            - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
       prologue:
         commands:
           - checkout
           - pip install -r requirements.txt
-          - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
-          - dvc repro
-          - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
