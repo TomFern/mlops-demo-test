@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import joblib
 
@@ -25,11 +26,15 @@ def main():
         'Latitude': 34.2,     # Latitude of the block
         'Longitude': -118.4   # Longitude of the block
     }
+    expected_output = 2.0693601
 
     model = load_model()
     input_data = prepare_input_data(sample_input)
     prediction = make_prediction(model, input_data)
-    print(f"Predicted Value: {prediction[0]}")
+    print(f"Predicted Value: {prediction[0]} (expected {expected_output})")
+    if prediction[0] != expected_output:
+        sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

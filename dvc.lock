@@ -53,5 +53,5 @@ stages:
       size: 144744833
     - path: scripts/evaluate.py
       hash: md5
-      md5: 8d3344ca1120e163dbbc3d539727632b
-      size: 953
+      md5: 6e55bb7c2a033c31afe0343eda88153b
+      size: 952
