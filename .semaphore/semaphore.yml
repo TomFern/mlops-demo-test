@@ -1,0 +1,27 @@
+version: v1.0
+name: Train model
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+global_job_config:
+  prologue:
+    commands:
+      - sem-version python 3.11
+      - 'wget https://dvc.org/download/linux-deb/dvc-3.36.1 -O dvc.deb'
+      - sudo apt install dvc.deb
+blocks:
+  - name: Train and evaluate
+    task:
+      jobs:
+        - name: Train model
+          commands:
+            - dvc repro
+      prologue:
+        commands:
+          - checkout
+          - python -m venv venv
+          - source venv/bin/activate
+          - cache restore
+          - pip install -r requirements.txt
+          - cache store
