@@ -11,15 +11,28 @@ global_job_config:
       - 'wget https://dvc.org/download/linux-deb/dvc-3.36.1 -O dvc.deb'
       - sudo apt install ./dvc.deb
 blocks:
-  - name: Train and evaluate
+  - name: Train model
     task:
       jobs:
         - name: Train model
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
-            - dvc repro
+            - dvc repro train
             - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
       prologue:
         commands:
           - checkout
           - pip install -r requirements.txt
+  - name: Evaluate model
+    task:
+      prologue:
+        commands:
+          - checkout
+          - pip install -r requirements.txt
+      jobs:
+        - name: Evaluate
+          commands:
+            - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
+            - dvc repro evaluate
+            - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
+            - python scripts/predict.py
