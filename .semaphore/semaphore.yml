@@ -9,7 +9,7 @@ global_job_config:
     commands:
       - sem-version python 3.11
       - 'wget https://dvc.org/download/linux-deb/dvc-3.36.1 -O dvc.deb'
-      - sudo apt install dvc.deb
+      - sudo apt install ./dvc.deb
 blocks:
   - name: Train and evaluate
     task:
