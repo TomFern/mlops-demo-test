@@ -1,0 +1,26 @@
+stages:
+  download:
+    cmd: python scripts/data_load.py
+    deps:
+    - scripts/data_load.py
+    outs:
+    - data/california_housing.csv
+  prepare:
+    cmd: python scripts/prepare.py
+    deps:
+    - data/california_housing.csv
+    - scripts/prepare.py
+    outs:
+    - data/california_housing_prepared.csv
+  train:
+    cmd: python scripts/train.py
+    deps:
+    - data/california_housing_prepared.csv
+    - scripts/train.py
+    outs:
+    - models/rf_model.joblib
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+    - models/rf_model.joblib
+    - scripts/evaluate.py

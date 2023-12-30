@@ -1,0 +1,57 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: python scripts/data_load.py
+    deps:
+    - path: scripts/data_load.py
+      hash: md5
+      md5: 7cb974d1941decde72e7a075eaf1d097
+      size: 470
+    outs:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 51402f70515abed6d4591d34fa69ce2e
+      size: 1895149
+  prepare:
+    cmd: python scripts/prepare.py
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 51402f70515abed6d4591d34fa69ce2e
+      size: 1895149
+    - path: scripts/prepare.py
+      hash: md5
+      md5: c7e750bf7468f1be71c7ca86e94c2438
+      size: 443
+    outs:
+    - path: data/california_housing_prepared.csv
+      hash: md5
+      md5: 288b92dd1ef10055cda44dcfa23a2ecd
+      size: 1889443
+  train:
+    cmd: python scripts/train.py
+    deps:
+    - path: data/california_housing_prepared.csv
+      hash: md5
+      md5: 288b92dd1ef10055cda44dcfa23a2ecd
+      size: 1889443
+    - path: scripts/train.py
+      hash: md5
+      md5: aa598fcf65dc16385430c20aa2c3385a
+      size: 774
+    outs:
+    - path: models/rf_model.joblib
+      hash: md5
+      md5: 55301695beaa49c48febff82a5dbc71f
+      size: 144744833
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+    - path: models/rf_model.joblib
+      hash: md5
+      md5: 55301695beaa49c48febff82a5dbc71f
+      size: 144744833
+    - path: scripts/evaluate.py
+      hash: md5
+      md5: 8d3344ca1120e163dbbc3d539727632b
+      size: 953
