@@ -20,8 +20,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - python -m venv venv
-          - source venv/bin/activate
-          - cache restore
           - pip install -r requirements.txt
-          - cache store
+          - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
+          - dvc repro
+          - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
