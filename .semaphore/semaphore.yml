@@ -36,3 +36,8 @@ blocks:
             - dvc repro evaluate
             - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
             - python scripts/predict.py
+promotions:
+  - name: Docker
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: branch = 'main' AND result = 'passed'

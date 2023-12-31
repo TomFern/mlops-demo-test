@@ -1,0 +1,14 @@
+version: v1.0
+name: Docker build
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Docker build
+    task:
+      jobs:
+        - name: Build and push
+          commands:
+            - checkout
+            - 'docker build -t $DOCKER_USERNAME/california-housing:latest .'
