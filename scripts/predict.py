@@ -12,7 +12,6 @@ def make_prediction(model, input_data):
 
 def prepare_input_data(sample_input):
     """Prepare the input data for prediction. This should match the format used for training the model."""
-    # Example: convert a dictionary to a pandas DataFrame. Modify this as per your feature set.
     return pd.DataFrame([sample_input])
 
 def main():

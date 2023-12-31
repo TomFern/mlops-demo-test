@@ -4,7 +4,7 @@ def load_data(filename='data/california_housing.csv'):
     return pd.read_csv(filename)
 
 def preprocess_data(data):
-    # Add any preprocessing steps here if necessary
+    # preprocess/validation steps go here
     return data
 
 def save_data(data, filename='data/california_housing_prepared.csv'):
