@@ -4,6 +4,12 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
+global_job_config:
+  prologue:
+    commands:
+      - sem-version python 3.11
+      - 'wget https://dvc.org/download/linux-deb/dvc-3.36.1 -O dvc.deb'
+      - sudo apt install ./dvc.deb
 blocks:
   - name: Docker build
     task:
@@ -11,4 +17,6 @@ blocks:
         - name: Build and push
           commands:
             - checkout
+            - cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID
+            - dvc repro train
             - 'docker build -t $DOCKER_USERNAME/california-housing:latest .'
