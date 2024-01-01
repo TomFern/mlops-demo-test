@@ -21,8 +21,8 @@ stages:
       size: 1895149
     - path: scripts/prepare.py
       hash: md5
-      md5: c7e750bf7468f1be71c7ca86e94c2438
-      size: 443
+      md5: f20f7491256bd32d28065a8d7202539c
+      size: 433
     outs:
     - path: data/california_housing_prepared.csv
       hash: md5
@@ -55,3 +55,27 @@ stages:
       hash: md5
       md5: 6e55bb7c2a033c31afe0343eda88153b
       size: 952
+  metrics:
+    cmd: python scripts/metrics.py
+    deps:
+    - path: data/california_housing_prepared.csv
+      hash: md5
+      md5: 288b92dd1ef10055cda44dcfa23a2ecd
+      size: 1889443
+    - path: models/rf_model.joblib
+      hash: md5
+      md5: 55301695beaa49c48febff82a5dbc71f
+      size: 144744833
+    - path: scripts/metrics.py
+      hash: md5
+      md5: d8c6a9ddf9e807c364de0eae974508d9
+      size: 2733
+    outs:
+    - path: metrics/mse_plot.png
+      hash: md5
+      md5: 0b09cbd1fbcfa6c73d72f044fd7fd9d0
+      size: 62684
+    - path: metrics/mse_values.csv
+      hash: md5
+      md5: f130f7eda23d3e5fec9676137715cd99
+      size: 140119

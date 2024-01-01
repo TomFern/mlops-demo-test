@@ -24,3 +24,13 @@ stages:
     deps:
     - models/rf_model.joblib
     - scripts/evaluate.py
+  metrics:
+    cmd: python scripts/metrics.py
+    deps:
+    - data/california_housing_prepared.csv
+    - models/rf_model.joblib
+    - scripts/metrics.py
+    outs:
+    - metrics/mse_plot.png
+    metrics:
+    - metrics/mse_values.csv

@@ -31,6 +31,8 @@ You can try the model's inference with:
 python scripts/predict.py
 ```
 
+The `metrics` should now contain benchmarks of the model in plot/png and CSV formats.
+
 ## API Server
 
 The project includes an Flask API server. You can start it with
