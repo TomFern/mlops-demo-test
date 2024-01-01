@@ -34,7 +34,7 @@ blocks:
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro evaluate
-            - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
+            - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
             - python scripts/predict.py
   - name: Calculate metrics
     task:
@@ -49,7 +49,7 @@ blocks:
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
-            - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
+            - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
             - 'echo -e "# Mean Squared Error over latitude, longitude\n\n" > report.md'
             - 'echo -e "![](./metrics/mse_plot.png)\n\n" >> report.md'
             - 'cml --repo=https://github.com/TomFern/mlops-demo-test ci'
