@@ -40,16 +40,21 @@ blocks:
     task:
       prologue:
         commands:
+          - sem-version node 20.10
+          - npm install -g @dvcorg/cml
           - checkout
           - pip install -r requirements.txt
       jobs:
-        - name: Metrics
+        - name: Comment on GitHub
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
             - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
-            - echo "# Mean Squared Error over latitude, longitude" > report.md
-            - echo "![](./metrics/plot.png "MSE")" > report.md
+            - 'echo "# Mean Squared Error over latitude, longitude" > report.md'
+            - 'echo "![](./metrics/plot.png "MSE")" > report.md'
+            - cml comment create report.md
+      secrets:
+        - name: tomfern-github
 promotions:
   - name: Docker
     pipeline_file: pipeline_2.yml
