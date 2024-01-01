@@ -14,3 +14,5 @@ dvc stage add -n train -d scripts/train.py -d data/california_housing_prepared.c
 
 dvc stage add -n evaluate -d scripts/evaluate.py -d models/rf_model.joblib python scripts/evaluate.py
 (returns exit code 1 if error > cutoff)
+
+dvc stage add -n metrics -d scripts/metrics.py -d data/california_housing_prepared.csv -d models/rf_model.joblib -o metrics/mse_plot.png -m metrics/mse_values.csv python scripts/metrics.py
