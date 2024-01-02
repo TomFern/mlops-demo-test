@@ -48,7 +48,7 @@ blocks:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
             - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
-            - artifact workflow push --force metrics
+            - artifact push workflow --force metrics
       secrets:
         - name: tomfern-github
 promotions:
