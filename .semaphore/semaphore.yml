@@ -40,20 +40,15 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 20.10
-          - npm install -g @dvcorg/cml
           - checkout
           - pip install -r requirements.txt
       jobs:
-        - name: Comment on GitHub
+        - name: Create reports
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
             - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
-            - 'echo -e "# Mean Squared Error over latitude, longitude\n\n" > report.md'
-            - 'echo -e "![](./metrics/mse_plot.png)\n\n" >> report.md'
-            - 'cml --repo=https://github.com/TomFern/mlops-demo-test ci'
-            - cml comment create --target=commit/$SEMAPHORE_GIT_SHA report.md
+            - artifact workflow push --force metrics
       secrets:
         - name: tomfern-github
 promotions:
