@@ -9,6 +9,8 @@ global_job_config:
     commands:
       - sem-version python 3.11
       - 'curl -L https://fly.io/install.sh | sh'
+      - export FLYCTL_INSTALL="/home/semaphore/.fly"
+      - 'export PATH="$FLYCTL_INSTALL/bin:$PATH"'
 blocks:
   - name: Fly deploy
     task:
@@ -18,7 +20,7 @@ blocks:
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
             - 'docker pull $DOCKER_USERNAME/california-housing:$SEMAPHORE_WORKFLOW_ID'
             - checkout
-            - 'fly deploy --access-token "${FLY_TOKEN}" --local-only'
+            - 'fly deploy --access-token "${FLY_TOKEN}" --local-only -i $DOCKER_USERNAME/california-housing:$SEMAPHORE_WORKFLOW_ID'
       secrets:
         - name: dockerhub
         - name: fly-tomfern
