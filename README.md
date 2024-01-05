@@ -69,10 +69,15 @@ $ docker run -it -p 8080:8080 california-housing
 ## Deploy to Fly.io
 
 To create the app for the first time:
-1. Create a free Fly.io account
+1. Create a free Fly.io account.
 2. Install [flyctl](https://fly.io/docs/hands-on/install-flyctl/)
 3. Run `fly launch`
 
-To deploy the app with CI/CD
+Once you have launched the application once, you can setup Semaphore to do continuous delivery:
+1. Open your Fly.io account and create an access token.
+2. Create the secret `fly-deploy` with the env variable `FLY_TOKEN`
+3. Edit the CI/CD Pipeline. Go to the last pipeline and add your secret to the block.
+4. Save the pipeline.
 
+## LICENSE
 
