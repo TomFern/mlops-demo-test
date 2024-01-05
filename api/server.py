@@ -21,7 +21,7 @@ app = Flask(__name__)
 @app.route('/predict', methods=['POST'])
 def predict():
     sample_input = request.json
-    print("Serving prediction request: {sample_input}")
+    print(f'Serving prediction request: {sample_input}')
     model = load_model()
     input_data = prepare_input_data(sample_input)
     prediction = make_prediction(model, input_data)

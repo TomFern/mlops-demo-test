@@ -14,6 +14,4 @@ USER appuser
 WORKDIR /usr/src/app/api
 
 EXPOSE 8080
-
-# Development server - don't use in production
-CMD ["python", "server.py"]
+CMD ["gunicorn", "-w 4", "-b :8080", "server:app"]
