@@ -1,0 +1,24 @@
+version: v1.0
+name: Deploy model
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+global_job_config:
+  prologue:
+    commands:
+      - sem-version python 3.11
+      - 'curl -L https://fly.io/install.sh | sh'
+blocks:
+  - name: Fly deploy
+    task:
+      jobs:
+        - name: Deploy
+          commands:
+            - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - 'docker pull $DOCKER_USERNAME/california-housing:$SEMAPHORE_WORKFLOW_ID'
+            - checkout
+            - 'fly deploy --access-token "${FLY_TOKEN}" --local-only'
+      secrets:
+        - name: dockerhub
+        - name: fly-tomfern

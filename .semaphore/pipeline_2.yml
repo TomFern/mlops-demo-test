@@ -20,7 +20,10 @@ blocks:
             - checkout
             - cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID
             - dvc repro train
-            - 'docker build -t $DOCKER_USERNAME/california-housing:latest .'
-            - 'docker push $DOCKER_USERNAME/california-housing:latest'
+            - 'docker build -t $DOCKER_USERNAME/california-housing:$SEMAPHORE_WORKFLOW_ID .'
+            - 'docker push $DOCKER_USERNAME/california-housing:$SEMAPHORE_WORKFLOW_ID'
       secrets:
         - name: dockerhub
+promotions:
+  - name: Deploy
+    pipeline_file: pipeline_3.yml
