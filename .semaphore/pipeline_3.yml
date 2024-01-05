@@ -36,4 +36,5 @@ blocks:
           commands:
             - checkout
             - cd api
+            - pip install requests
             - python test_request.py
