@@ -2,7 +2,7 @@ import requests
 
 # Replace with the URL you want to send the POST request to
 # e.g. url = 'https://mlops-demo-test-purple-river-469.fly.dev/predict'
-url = 'http://127.0.0.1:8080/predict'  
+url = 'http://127.0.0.1:8080/predict'
 
 data = {
         'MedInc': 3.5,        # Median income in tens of thousands
