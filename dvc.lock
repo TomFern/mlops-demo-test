@@ -79,3 +79,27 @@ stages:
       hash: md5
       md5: f130f7eda23d3e5fec9676137715cd99
       size: 140119
+  validate:
+    cmd: python scripts/data_validate.py
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 51402f70515abed6d4591d34fa69ce2e
+      size: 1895149
+    - path: scripts/data_validate.py
+      hash: md5
+      md5: 6df840e07d7cba91506633a3fb1fdd6c
+      size: 2247
+    outs:
+    - path: metrics/data_correlation_matrix.png
+      hash: md5
+      md5: 4d05d882e8c663776073702d19addddd
+      size: 89256
+    - path: metrics/data_histogram.png
+      hash: md5
+      md5: 4f11c76b3f7d7d662793aa1ce408c77e
+      size: 108574
+    - path: metrics/data_report.txt
+      hash: md5
+      md5: 6c1a9967918397240256a18c0a3224c7
+      size: 2409

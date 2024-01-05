@@ -33,6 +33,16 @@ python scripts/predict.py
 
 The `metrics` should now contain benchmarks of the model in plot/png and CSV formats.
 
+## ML Stages
+
+The DVC pipeline contains the following stages:
+1. download: download traininig dataset
+2. validate: validate dataset
+3. prepare: prepare dataset
+4. train: train the model
+5. evaluate: evaluate model
+6. metrics: calculate model error
+
 ## API Server
 
 The project includes an Flask API server. You can start it with

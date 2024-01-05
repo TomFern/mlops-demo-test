@@ -5,6 +5,16 @@ stages:
     - scripts/data_load.py
     outs:
     - data/california_housing.csv
+  validate:
+    cmd: python scripts/data_validate.py
+    deps:
+    - data/california_housing.csv
+    - scripts/data_validate.py
+    outs:
+    - metrics/data_correlation_matrix.png
+    - metrics/data_histogram.png
+    metrics:
+    - metrics/data_report.txt
   prepare:
     cmd: python scripts/prepare.py
     deps:

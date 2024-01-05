@@ -5,6 +5,8 @@ dvc stage add -n download -d scripts/data_load.py -o data/california_housing.csv
 git add dvc.yaml dvc.lock
 git commit -m "create ML pipeline"
 
+dvc stage add -n validate -d scripts/data_validate.py -d data/california_housing.csv -m metrics/data_report.txt -o metrics/data_correlation_matrix.png -o metrics/data_histogram.png python scripts/data_validate.py
+
 dvc stage add -n prepare -d scripts/prepare.py -d data/california_housing.csv -o data/california_housing_prepared.csv python scripts/prepare.py
 
 dvc dag
