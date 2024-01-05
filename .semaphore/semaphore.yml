@@ -19,6 +19,7 @@ blocks:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro train
             - 'cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
+            - artifact push workflow --force metrics
       prologue:
         commands:
           - checkout
@@ -34,7 +35,6 @@ blocks:
           commands:
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro evaluate
-            - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
             - python scripts/predict.py
   - name: Calculate metrics
     task:
@@ -45,12 +45,10 @@ blocks:
       jobs:
         - name: Create reports
           commands:
+            - artifact pull workflow metrics
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
-            - '#cache store dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache .dvc/cache'
             - artifact push workflow --force metrics
-      secrets:
-        - name: tomfern-github
 promotions:
   - name: Docker
     pipeline_file: pipeline_2.yml
