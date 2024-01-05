@@ -9,7 +9,6 @@ data_lines = 20640
 data_columns = ['AveBedrms', 'AveOccup', 'AveRooms', 'HouseAge', 
                 'Latitude', 'Longitude', 'MedInc', 'Population', 'TARGET']
 
-
 def load_data(filename=path.join('data', 'california_housing_prepared.csv')):
     data = pd.read_csv(filename)
     return data
