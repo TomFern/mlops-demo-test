@@ -24,7 +24,7 @@ blocks:
         commands:
           - checkout
           - pip install -r requirements.txt
-  - name: Evaluate model
+  - name: Test model
     task:
       prologue:
         commands:
@@ -45,7 +45,7 @@ blocks:
       jobs:
         - name: Create reports
           commands:
-            - artifact pull workflow metrics
+            - artifact pull workflow --force metrics
             - 'cache restore dvc-cache-$SEMAPHORE_WORKFLOW_ID,dvc-cache-$SEMAPHORE_GIT_BRANCH,dvc-cache'
             - dvc repro metrics
             - artifact push workflow --force metrics
