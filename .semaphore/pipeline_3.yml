@@ -8,9 +8,6 @@ global_job_config:
   prologue:
     commands:
       - sem-version python 3.11
-      - 'curl -L https://fly.io/install.sh | sh'
-      - export FLYCTL_INSTALL="/home/semaphore/.fly"
-      - 'export PATH="$FLYCTL_INSTALL/bin:$PATH"'
 blocks:
   - name: Fly deploy
     task:
@@ -24,3 +21,19 @@ blocks:
       secrets:
         - name: dockerhub
         - name: fly-tomfern
+      prologue:
+        commands:
+          - 'curl -L https://fly.io/install.sh | sh'
+          - export FLYCTL_INSTALL="/home/semaphore/.fly"
+          - 'export PATH="$FLYCTL_INSTALL/bin:$PATH"'
+  - name: Smoke tests
+    task:
+      env_vars:
+        - name: TEST_URL
+          value: 'https://mlops-demo-test-purple-river-469.fly.dev/predict'
+      jobs:
+        - name: Test deployment
+          commands:
+            - checkout
+            - cd api
+            - python test_request.py
