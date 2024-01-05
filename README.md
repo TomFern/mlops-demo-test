@@ -66,3 +66,13 @@ Try running the build image with:
 $ docker run -it -p 8080:8080 california-housing
 ```
 
+## Deploy to Fly.io
+
+To create the app for the first time:
+1. Create a free Fly.io account
+2. Install [flyctl](https://fly.io/docs/hands-on/install-flyctl/)
+3. Run `fly launch`
+
+To deploy the app with CI/CD
+
+
