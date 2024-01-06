@@ -22,15 +22,9 @@ dvc stage add -n train --force \
   python src/train.py
 ```
 
-5. Apply the values to the current branch: `dvc exp apply <branch>` (e.g `dvc exp apply experiments`)
-
-6. Run the normal model
-
-???
-
-7. Run an experiment
-8. Queue experiment
-9. Run later (commit, run in CI)
+5. Run `dvc repro` to ensure everythin is ok
+6. Run an experiment: `dvc exp run -S "train.n_estimators=0.1"`
+7.
 
 ## Running experiments
 

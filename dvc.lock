@@ -39,6 +39,9 @@ stages:
       hash: md5
       md5: aa598fcf65dc16385430c20aa2c3385a
       size: 774
+    params:
+      params.yaml:
+        train.n_estimators: 0.1
     outs:
     - path: models/rf_model.joblib
       hash: md5

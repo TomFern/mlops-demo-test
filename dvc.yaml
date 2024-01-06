@@ -23,16 +23,16 @@ stages:
     outs:
     - data/california_housing_prepared.csv
   train:
-    cmd: python src/train.py
+    cmd: python scripts/train.py
     deps:
     - data/california_housing_prepared.csv
     - scripts/train.py
     outs:
     - models/rf_model.joblib
     params:
-    - n_estimators
-    - random_state
-    - test_size
+    - train.n_estimators
+    - train.random_state
+    - train.test_size
   evaluate:
     cmd: python scripts/evaluate.py
     deps:
